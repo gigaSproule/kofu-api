@@ -1,38 +1,20 @@
 package com.benjaminsproule.kofuapi
 
-import kotlinx.coroutines.reactive.awaitFirst
-import org.springframework.boot.logging.LogLevel
-import org.springframework.fu.kofu.reactiveWebApplication
-import org.springframework.fu.kofu.webflux.webFlux
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import io.micronaut.runtime.Micronaut.*
 
-val app = reactiveWebApplication {
-    logging {
-        level = LogLevel.DEBUG
-    }
-    beans {
-        bean<SampleService>()
-    }
-    webFlux {
-        port = if (profiles.contains("test")) 8181 else 8080
-        coRouter {
-            val service = ref<SampleService>()
-            GET("/") {
-                ok().bodyValue(service.generateMessage()).awaitFirst()!!
-            }
-        }
-        codecs {
-            string()
-            jackson {
-                indentOutput = true
-            }
-        }
-    }
+
+@Controller
+class SampleController {
+
+    @Get("/")
+    fun packagesWithLowLevelClient() = "Hello, world!"
 }
 
-class SampleService {
-    fun generateMessage() = "Hello, world!"
-}
-
-fun main() {
-    app.run()
+fun main(args: Array<String>) {
+    build()
+        .args(*args)
+        .packages("com.benjaminsproule.kofuapi")
+        .start()
 }
