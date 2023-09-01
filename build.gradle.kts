@@ -5,7 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.kapt") version "1.4.10"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.4.10"
     id("com.github.johnrengelman.shadow") version "6.1.0"
-    id("io.micronaut.application") version "1.2.0"
+    id("io.micronaut.application") version "4.0.3"
 }
 
 group = "com.benjaminsproule"
