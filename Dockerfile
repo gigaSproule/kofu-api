@@ -4,7 +4,7 @@ ADD . ./
 RUN ./gradlew clean build
 RUN pwd
 
-FROM openjdk:15-alpine
+FROM openjdk:17-alpine
 ARG APP=/opt/kofu-api
 EXPOSE 8080
 RUN mkdir -p ${APP}
